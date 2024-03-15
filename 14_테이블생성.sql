@@ -28,11 +28,44 @@ VALUES(20,'개발부','서울',sysdate,2000000);
 INSERT INTO dept2
 VALUES(30,'경영지원','경기',sysdate,2000000000);
 
+-- 컬럼 추가
+ALTER TABLE dept2
+ADD dept_count NUMBER(3);
+
+-- 컬럼명 변경
+ALTER TABLE dept2
+RENAME COLUMN dept_count TO emp_count;
+
+SELECT * FROM dept2;
+
+-- 컬럼 속성 수정
+-- 만약 변경하고자 하는 컬럼에 데이터가 이미 존재한다면, 그에 맞는 타입으로 변경해야함.
+-- 맞지않는 타입으로 변경 불가능.
+-- 커밋과 롤백의 효과가 없다!(DDL은 자동으로 커밋이됨)
+-- 다시 되돌아 갈수 없으니 신중하게 테이블 삭제 및 수정하기!
+ALTER TABLE dept2
+MODIFY dept_name VARCHAR2(50); -- 속성! 길이를 길게 변경
+
+-- DDL(CREATE, ALTER, TRUNCATE, DROP)은 트랜잭션의 대상이 아닙니다.
+ROLLBACK;
+
+-- 컬럼 삭제
+-- 컬럼의 데이터가 존재해도 삭제된다.
+ALTER TABLE dept2
+DROP COLUMN dept_bonus;
+
+SELECT * FROM dept3;
+
+-- 테이블 이름변경
+ALTER TABLE dept2
+RENAME TO dept3;
 
 
+-- 테이블 내부데이터 삭제 (구조는 남겨두고 내부 데이터만 모두 삭제)
+TRUNCATE TABLE dept3;
 
-
-
+-- 테이블 전체 삭제
+DROP TABLE dept3;
 
 
 
